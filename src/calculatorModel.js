@@ -31,6 +31,10 @@ class CalculatorModel {
         throw new Error("잘못된 연산자입니다.");
     }
   }
+
+  negate(num) {
+    return -num;
+  }
 }
 
 export { CalculatorModel };
