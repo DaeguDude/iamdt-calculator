@@ -31,4 +31,18 @@ describe("계산 관련 기능 모듈 - CalculatorModel", () => {
     expect(calculatorModelInstance.divide(-248, 248)).toBe(-1);
     expect(calculatorModelInstance.divide(-1.5, -0.5)).toBe(3);
   });
+
+  test("계산하기", () => {
+    expect(calculatorModelInstance.operate(1, 2, "add")).toBe(3);
+    expect(calculatorModelInstance.operate(5000, 3410, "add")).toBe(8410);
+
+    expect(calculatorModelInstance.operate(100, 100, "subtract")).toBe(0);
+    expect(calculatorModelInstance.operate(42, 43, "subtract")).toBe(-1);
+
+    expect(calculatorModelInstance.operate(1, 2, "multiply")).toBe(2);
+    expect(calculatorModelInstance.operate(185, 10, "multiply")).toBe(1850);
+
+    expect(calculatorModelInstance.operate(1, 2, "divide")).toBe(0.5);
+    expect(calculatorModelInstance.operate(1000, 20, "divide")).toBe(50);
+  });
 });
