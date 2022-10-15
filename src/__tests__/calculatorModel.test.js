@@ -53,4 +53,13 @@ describe("계산 관련 기능 모듈 - CalculatorModel", () => {
     expect(calculatorModelInstance.negate(-10)).toBe(10);
     expect(calculatorModelInstance.negate(-5.1234)).toBe(5.1234);
   });
+
+  test("100으로 나누어주기(percent)", () => {
+    expect(calculatorModelInstance.percent(3)).toBe(0.03);
+    expect(calculatorModelInstance.percent(0.03)).toBe(0.0003);
+    expect(calculatorModelInstance.percent(-3)).toBe(-0.03);
+    expect(calculatorModelInstance.percent(-0.03)).toBe(-0.0003);
+    expect(calculatorModelInstance.percent(5000)).toBe(50);
+    expect(calculatorModelInstance.percent(-51234)).toBe(-512.34);
+  });
 });
