@@ -35,6 +35,10 @@ class CalculatorModel {
   negate(num) {
     return -num;
   }
+
+  percent(num) {
+    return this.divide(num, 100);
+  }
 }
 
 export { CalculatorModel };
