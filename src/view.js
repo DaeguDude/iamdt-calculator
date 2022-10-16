@@ -78,7 +78,10 @@ class View {
   }
 
   onClearBtnClick() {
-    console.log("클리어 클릭");
+    this.savedOperator = null;
+    this.savedNumber = 0;
+    this.currentNum = "0";
+    this.setDisplayValue(this.currentNum);
   }
 
   onDecimalBtnClick() {
