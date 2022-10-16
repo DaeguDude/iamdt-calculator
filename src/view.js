@@ -98,7 +98,12 @@ class View {
   }
 
   onDecimalBtnClick() {
-    console.log("소수점 클릭");
+    const hasDecimal = this.currentNum.indexOf(".") !== -1;
+    if (!hasDecimal) {
+      this.currentNum += ".";
+    }
+
+    this.setDisplayValue(this.currentNum);
   }
 }
 
