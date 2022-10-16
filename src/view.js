@@ -77,7 +77,8 @@ class View {
   }
 
   onNegationBtnClick() {
-    console.log("부정 클릭");
+    this.currentNum = this.calculatorModel.negate(this.currentNum);
+    this.setDisplayValue(this.currentNum);
   }
 
   onClearBtnClick() {
