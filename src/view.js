@@ -1,3 +1,5 @@
+import { toFixed } from "./helper";
+
 class View {
   constructor(calculatorModel) {
     this.calculatorModel = calculatorModel;
@@ -16,7 +18,7 @@ class View {
   }
 
   setDisplayValue(value) {
-    this.displayValue = value;
+    this.displayValue = toFixed(value);
     this.populateDisplay(this.displayValue);
   }
 
@@ -70,7 +72,8 @@ class View {
   }
 
   onPercentBtnClick() {
-    console.log("퍼센트 클릭");
+    this.currentNum = this.calculatorModel.percent(this.currentNum);
+    this.setDisplayValue(this.currentNum);
   }
 
   onNegationBtnClick() {
