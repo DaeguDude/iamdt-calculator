@@ -15,6 +15,15 @@ class View {
     this.onNumberBtnClick = this.onNumberBtnClick.bind(this);
   }
 
+  setDisplayValue(value) {
+    this.displayValue = value;
+    this.populateDisplay(this.displayValue);
+  }
+
+  populateDisplay(value) {
+    document.querySelector("#display-text").innerText = value;
+  }
+
   addEventHandlers() {
     const clearBtn = document.querySelector("#clear");
     clearBtn.addEventListener("click", this.onClearBtnClick);
