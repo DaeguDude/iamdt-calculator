@@ -51,8 +51,14 @@ class View {
     );
   }
 
-  onNumberBtnClick() {
-    console.log("숫자 클릭");
+  onNumberBtnClick(e) {
+    if (this.currentNum === "0") {
+      this.currentNum = e.target.dataset.numValue;
+    } else {
+      this.currentNum += e.target.dataset.numValue;
+    }
+
+    this.setDisplayValue(this.currentNum);
   }
 
   onOperatorBtnClick() {
