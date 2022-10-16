@@ -1,4 +1,4 @@
-import { toFixed } from "./helper";
+import { convertOperateParam, toFixed } from "./helper";
 
 class View {
   constructor(calculatorModel) {
@@ -63,12 +63,21 @@ class View {
     this.setDisplayValue(this.currentNum);
   }
 
-  onOperatorBtnClick() {
-    console.log("연산자 클릭");
+  onOperatorBtnClick(e) {
+    const clickedOperator = e.target.dataset.operator;
+    this.savedNumber = Number(this.currentNum);
+    this.savedOperator = clickedOperator;
+    this.currentNum = "0";
   }
 
   onEqualBtnClick() {
-    console.log("계산 클릭");
+    const result = this.calculatorModel.operate(
+      this.savedNumber,
+      Number(this.currentNum),
+      convertOperateParam(this.savedOperator)
+    );
+
+    this.setDisplayValue(result);
   }
 
   onPercentBtnClick() {
