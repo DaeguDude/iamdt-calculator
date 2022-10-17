@@ -44,7 +44,7 @@ const getHtml = () =>
 </div>
 `;
 
-describe("", () => {
+describe("스모크 테스트", () => {
   test("버튼이 클릭될 시 숫자가 제대로 뜨는지 확인합니다.", () => {
     document.body.innerHTML = getHtml();
     const view = new View(new CalculatorModel());
@@ -353,5 +353,134 @@ describe("사칙연산", () => {
       document.querySelector("#equal").click();
       expect(document.querySelector("#display-text").innerText).toBe(-6);
     });
+  });
+});
+
+describe("연산을 여러 번 할 수 있는지 확인", () => {
+  test("이전 결과값을 받아 연산을 할 수 있습니다. (ex -2 + 3 = 1, 1 + 5 = 6)", () => {
+    document.body.innerHTML = getHtml();
+    const view = new View(new CalculatorModel());
+    view.addEventHandlers();
+
+    document.querySelector("#minus").click();
+    document.querySelector("#num-2").click();
+    document.querySelector("#plus").click();
+    document.querySelector("#num-3").click();
+    document.querySelector("#equal").click();
+
+    document.querySelector("#plus").click();
+    document.querySelector("#num-5").click();
+    document.querySelector("#equal").click();
+    expect(document.querySelector("#display-text").innerText).toBe(6);
+  });
+
+  test("이전 결과값을 받아 연산을 할 수 있습니다. (ex 5 + 3 = 8, 8 - 8 = 0)", () => {
+    document.body.innerHTML = getHtml();
+    const view = new View(new CalculatorModel());
+    view.addEventHandlers();
+
+    document.querySelector("#num-5").click();
+    document.querySelector("#plus").click();
+    document.querySelector("#num-3").click();
+    document.querySelector("#equal").click();
+
+    document.querySelector("#minus").click();
+    document.querySelector("#num-8").click();
+    document.querySelector("#equal").click();
+    expect(document.querySelector("#display-text").innerText).toBe(0);
+  });
+
+  test("이전 결과값을 받아 연산을 할 수 있습니다. (ex 5 + 3 = 8, 8 - 8 = 0, 0 - 8 = -8)", () => {
+    document.body.innerHTML = getHtml();
+    const view = new View(new CalculatorModel());
+    view.addEventHandlers();
+
+    document.querySelector("#num-5").click();
+    document.querySelector("#plus").click();
+    document.querySelector("#num-3").click();
+    document.querySelector("#equal").click();
+
+    document.querySelector("#minus").click();
+    document.querySelector("#num-8").click();
+    document.querySelector("#equal").click();
+
+    document.querySelector("#minus").click();
+    document.querySelector("#num-8").click();
+    document.querySelector("#equal").click();
+    expect(document.querySelector("#display-text").innerText).toBe(-8);
+  });
+});
+
+describe("연산을 여러 번 할 수 있는지 확인", () => {
+  test("이전 결과값을 받아 연산을 할 수 있습니다. (ex -2 + 3 = 1, 1 + 5 = 6)", () => {
+    document.body.innerHTML = getHtml();
+    const view = new View(new CalculatorModel());
+    view.addEventHandlers();
+
+    document.querySelector("#minus").click();
+    document.querySelector("#num-2").click();
+    document.querySelector("#plus").click();
+    document.querySelector("#num-3").click();
+    document.querySelector("#equal").click();
+
+    document.querySelector("#plus").click();
+    document.querySelector("#num-5").click();
+    document.querySelector("#equal").click();
+    expect(document.querySelector("#display-text").innerText).toBe(6);
+  });
+
+  test("이전 결과값을 받아 연산을 할 수 있습니다. (ex 5 + 3 = 8, 8 - 8 = 0)", () => {
+    document.body.innerHTML = getHtml();
+    const view = new View(new CalculatorModel());
+    view.addEventHandlers();
+
+    document.querySelector("#num-5").click();
+    document.querySelector("#plus").click();
+    document.querySelector("#num-3").click();
+    document.querySelector("#equal").click();
+
+    document.querySelector("#minus").click();
+    document.querySelector("#num-8").click();
+    document.querySelector("#equal").click();
+    expect(document.querySelector("#display-text").innerText).toBe(0);
+  });
+});
+
+describe("중간 계산에 연산자를 여러번 눌러도 제대로 계산됩니다", () => {
+  test("2 + + + - 5 = -3", () => {
+    document.body.innerHTML = getHtml();
+    const view = new View(new CalculatorModel());
+    view.addEventHandlers();
+
+    document.querySelector("#num-2").click();
+
+    document.querySelector("#plus").click();
+    document.querySelector("#plus").click();
+    document.querySelector("#plus").click();
+
+    document.querySelector("#minus").click();
+    document.querySelector("#num-5").click();
+
+    document.querySelector("#equal").click();
+
+    expect(document.querySelector("#display-text").innerText).toBe(-3);
+  });
+
+  test("3 + - / * 5 = 15", () => {
+    document.body.innerHTML = getHtml();
+    const view = new View(new CalculatorModel());
+    view.addEventHandlers();
+
+    document.querySelector("#num-3").click();
+
+    document.querySelector("#plus").click();
+    document.querySelector("#minus").click();
+    document.querySelector("#divide").click();
+
+    document.querySelector("#multiply").click();
+    document.querySelector("#num-5").click();
+    document.querySelector("#equal").click();
+
+    expect(document.querySelector("#display-text").innerText).toBe(15);
   });
 });

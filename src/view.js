@@ -3,6 +3,7 @@ import { convertOperateParam, toFixed } from "./helper";
 class View {
   constructor(calculatorModel) {
     this.calculatorModel = calculatorModel;
+    this.result = null;
     this.currentNum = "0";
     this.displayValue = "0";
     this.savedNumber = 0;
@@ -65,7 +66,24 @@ class View {
 
   onOperatorBtnClick(e) {
     const clickedOperator = e.target.dataset.operator;
-    if (!this.savedOperator && this.currentNum === "0") {
+
+    const hasPreviousResult = this.result !== null;
+    if (hasPreviousResult) {
+      this.savedNumber = this.result;
+      this.savedOperator = clickedOperator;
+      this.currentNum = "0";
+      return;
+    }
+
+    const isOperatorClickedInARow = this.savedOperator;
+    if (isOperatorClickedInARow) {
+      this.savedOperator = clickedOperator;
+      return;
+    }
+
+    const isFirstInputMinus =
+      clickedOperator === "-" && !this.savedOperator && this.currentNum === "0";
+    if (isFirstInputMinus) {
       this.currentNum = "-";
       return;
     }
@@ -82,6 +100,10 @@ class View {
       convertOperateParam(this.savedOperator)
     );
 
+    this.result = result;
+    this.savedOperator = null;
+    this.savedNumber = 0;
+    this.currentNum = "0";
     this.setDisplayValue(result);
   }
 
@@ -96,6 +118,7 @@ class View {
   }
 
   onClearBtnClick() {
+    this.result = null;
     this.savedOperator = null;
     this.savedNumber = 0;
     this.currentNum = "0";
