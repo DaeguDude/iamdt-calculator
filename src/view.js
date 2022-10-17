@@ -100,11 +100,15 @@ class View {
       convertOperateParam(this.savedOperator)
     );
 
+    this.onCalculated(result);
+    this.setDisplayValue(result);
+  }
+
+  onCalculated(result) {
     this.result = result;
     this.savedOperator = null;
     this.savedNumber = 0;
     this.currentNum = "0";
-    this.setDisplayValue(result);
   }
 
   onPercentBtnClick() {
@@ -113,6 +117,14 @@ class View {
   }
 
   onNegationBtnClick() {
+    const hasPreviousResult = !!this.result;
+    if (hasPreviousResult) {
+      const negatedValue = this.calculatorModel.negate(this.result);
+      this.onCalculated(negatedValue);
+      this.setDisplayValue(negatedValue);
+      return;
+    }
+
     this.currentNum = this.calculatorModel.negate(this.currentNum);
     this.setDisplayValue(this.currentNum);
   }

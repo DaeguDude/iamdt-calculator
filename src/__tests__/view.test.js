@@ -75,7 +75,7 @@ describe("clear", () => {
 });
 
 describe("부정", () => {
-  test("부정(+/-)버튼이 눌렸을 시 화면의 값을 부정하여 줍니다.", () => {
+  test("51, 부정버튼 클릭 -> -51", () => {
     document.body.innerHTML = getHtml();
     const view = new View(new CalculatorModel());
     view.addEventHandlers();
@@ -89,6 +89,40 @@ describe("부정", () => {
     expect(document.querySelector("#display-text").innerText).toBe(-51);
     document.querySelector("#negation").click();
     expect(document.querySelector("#display-text").innerText).toBe(51);
+  });
+
+  test("1 + 5 = 6, 부정버튼 클릭 -> -6", () => {
+    document.body.innerHTML = getHtml();
+    const view = new View(new CalculatorModel());
+    view.addEventHandlers();
+
+    document.querySelector("#num-1").click();
+    document.querySelector("#plus").click();
+    document.querySelector("#num-5").click();
+    document.querySelector("#equal").click();
+
+    expect(document.querySelector("#display-text").innerText).toBe(6);
+    document.querySelector("#negation").click();
+    expect(document.querySelector("#display-text").innerText).toBe(-6);
+  });
+
+  test("1 + 5 = 6, 부정버튼 클릭 = -6, -6 * 5 = -30", () => {
+    document.body.innerHTML = getHtml();
+    const view = new View(new CalculatorModel());
+    view.addEventHandlers();
+
+    document.querySelector("#num-1").click();
+    document.querySelector("#plus").click();
+    document.querySelector("#num-5").click();
+    document.querySelector("#equal").click();
+
+    document.querySelector("#negation").click();
+    expect(document.querySelector("#display-text").innerText).toBe(-6);
+
+    document.querySelector("#multiply").click();
+    document.querySelector("#num-5").click();
+    document.querySelector("#equal").click();
+    expect(document.querySelector("#display-text").innerText).toBe(-30);
   });
 });
 
