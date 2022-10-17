@@ -65,6 +65,11 @@ class View {
 
   onOperatorBtnClick(e) {
     const clickedOperator = e.target.dataset.operator;
+    if (!this.savedOperator && this.currentNum === "0") {
+      this.currentNum = "-";
+      return;
+    }
+
     this.savedNumber = Number(this.currentNum);
     this.savedOperator = clickedOperator;
     this.currentNum = "0";

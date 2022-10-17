@@ -192,6 +192,22 @@ describe("사칙연산", () => {
       document.querySelector("#equal").click();
       expect(document.querySelector("#display-text").innerText).toBe(7.7);
     });
+
+    test("-10 + 20 = 10", () => {
+      document.body.innerHTML = getHtml();
+      const view = new View(new CalculatorModel());
+      view.addEventHandlers();
+
+      document.querySelector("#minus").click();
+      document.querySelector("#num-1").click();
+      document.querySelector("#num-0").click();
+      document.querySelector("#plus").click();
+      document.querySelector("#num-2").click();
+      document.querySelector("#num-0").click();
+
+      document.querySelector("#equal").click();
+      expect(document.querySelector("#display-text").innerText).toBe(10);
+    });
   });
 
   describe("빼기", () => {
@@ -228,6 +244,28 @@ describe("사칙연산", () => {
       document.querySelector("#equal").click();
       expect(document.querySelector("#display-text").innerText).toBe(-1);
     });
+
+    test("-1.63 - 2.37 = -4", () => {
+      document.body.innerHTML = getHtml();
+      const view = new View(new CalculatorModel());
+      view.addEventHandlers();
+
+      document.querySelector("#minus").click();
+      document.querySelector("#num-1").click();
+      document.querySelector("#decimal").click();
+      document.querySelector("#num-6").click();
+      document.querySelector("#num-3").click();
+
+      document.querySelector("#minus").click();
+
+      document.querySelector("#num-2").click();
+      document.querySelector("#decimal").click();
+      document.querySelector("#num-3").click();
+      document.querySelector("#num-7").click();
+
+      document.querySelector("#equal").click();
+      expect(document.querySelector("#display-text").innerText).toBe(-4);
+    });
   });
 
   describe("나누기", () => {
@@ -255,6 +293,21 @@ describe("사칙연산", () => {
       document.querySelector("#num-3").click();
       document.querySelector("#equal").click();
       expect(document.querySelector("#display-text").innerText).toBe(0.5);
+    });
+
+    test("-1.5 / 3 = -0.5", () => {
+      document.body.innerHTML = getHtml();
+      const view = new View(new CalculatorModel());
+      view.addEventHandlers();
+
+      document.querySelector("#minus").click();
+      document.querySelector("#num-1").click();
+      document.querySelector("#decimal").click();
+      document.querySelector("#num-5").click();
+      document.querySelector("#divide").click();
+      document.querySelector("#num-3").click();
+      document.querySelector("#equal").click();
+      expect(document.querySelector("#display-text").innerText).toBe(-0.5);
     });
   });
 
@@ -286,6 +339,19 @@ describe("사칙연산", () => {
       document.querySelector("#num-3").click();
       document.querySelector("#equal").click();
       expect(document.querySelector("#display-text").innerText).toBe(4.5);
+    });
+
+    test("-2 * 3 = -6", () => {
+      document.body.innerHTML = getHtml();
+      const view = new View(new CalculatorModel());
+      view.addEventHandlers();
+
+      document.querySelector("#minus").click();
+      document.querySelector("#num-2").click();
+      document.querySelector("#multiply").click();
+      document.querySelector("#num-3").click();
+      document.querySelector("#equal").click();
+      expect(document.querySelector("#display-text").innerText).toBe(-6);
     });
   });
 });
