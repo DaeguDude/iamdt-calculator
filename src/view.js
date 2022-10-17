@@ -94,6 +94,10 @@ class View {
   }
 
   onEqualBtnClick() {
+    if (!this.savedOperator) {
+      return;
+    }
+
     const result = this.calculatorModel.operate(
       this.savedNumber,
       Number(this.currentNum),

@@ -5,7 +5,7 @@
 import { CalculatorModel } from "../calculatorModel";
 import { View } from "../view";
 
-const getHtml = () =>
+export const getHtml = () =>
   `<div id="app">
   <div id="screen">
     <h3 id="display-text">0</h3>
