@@ -112,6 +112,14 @@ class View {
   }
 
   onPercentBtnClick() {
+    const hasPreviousResult = !!this.result;
+    if (hasPreviousResult) {
+      const percentedValue = this.calculatorModel.percent(this.result);
+      this.onCalculated(percentedValue);
+      this.setDisplayValue(percentedValue);
+      return;
+    }
+
     this.currentNum = this.calculatorModel.percent(this.currentNum);
     this.setDisplayValue(this.currentNum);
   }

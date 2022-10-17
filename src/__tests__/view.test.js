@@ -168,6 +168,43 @@ describe("percent", () => {
       "0.000000000003"
     );
   });
+
+  test("1 + 5 = 6, 퍼센트 버튼 클릭 -> 0.06", () => {
+    document.body.innerHTML = getHtml();
+    const view = new View(new CalculatorModel());
+    view.addEventHandlers();
+
+    document.querySelector("#num-1").click();
+    document.querySelector("#plus").click();
+    document.querySelector("#num-5").click();
+    document.querySelector("#equal").click();
+
+    expect(document.querySelector("#display-text").innerText).toBe(6);
+    document.querySelector("#percent").click();
+    expect(document.querySelector("#display-text").innerText).toBe(0.06);
+  });
+
+  test("1 + 5 = 6, 퍼센트 버튼 클릭 = 0.06, 0.06 + 0.94 = 1", () => {
+    document.body.innerHTML = getHtml();
+    const view = new View(new CalculatorModel());
+    view.addEventHandlers();
+
+    document.querySelector("#num-1").click();
+    document.querySelector("#plus").click();
+    document.querySelector("#num-5").click();
+    document.querySelector("#equal").click();
+
+    document.querySelector("#percent").click();
+
+    document.querySelector("#plus").click();
+
+    document.querySelector("#num-0").click();
+    document.querySelector("#decimal").click();
+    document.querySelector("#num-9").click();
+    document.querySelector("#num-4").click();
+    document.querySelector("#equal").click();
+    expect(document.querySelector("#display-text").innerText).toBe(1);
+  });
 });
 
 describe("소수점(decimal)", () => {
