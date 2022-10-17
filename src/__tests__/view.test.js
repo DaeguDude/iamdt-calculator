@@ -57,3 +57,81 @@ describe("", () => {
     expect(document.querySelector("#display-text").innerText).toBe("123");
   });
 });
+
+describe("clear", () => {
+  test("clear가 눌렸을 시 화면에 값을 리셋시킵니다.", () => {
+    document.body.innerHTML = getHtml();
+    const view = new View(new CalculatorModel());
+    view.addEventHandlers();
+
+    document.querySelector("#num-1").click();
+    document.querySelector("#num-2").click();
+    document.querySelector("#num-3").click();
+
+    expect(document.querySelector("#display-text").innerText).toBe("123");
+    document.querySelector("#clear").click();
+    expect(document.querySelector("#display-text").innerText).toBe("0");
+  });
+});
+
+describe("부정", () => {
+  test("부정(+/-)버튼이 눌렸을 시 화면의 값을 부정하여 줍니다.", () => {
+    document.body.innerHTML = getHtml();
+    const view = new View(new CalculatorModel());
+    view.addEventHandlers();
+
+    document.querySelector("#num-5").click();
+    document.querySelector("#num-1").click();
+
+    // NOTE: 타입의 일원화를 해주어야 할까?
+    expect(document.querySelector("#display-text").innerText).toBe("51");
+    document.querySelector("#negation").click();
+    expect(document.querySelector("#display-text").innerText).toBe(-51);
+    document.querySelector("#negation").click();
+    expect(document.querySelector("#display-text").innerText).toBe(51);
+  });
+});
+
+describe("percent", () => {
+  test("퍼센트(%) 버튼이 눌렸을 시 화면의 값을 100으로 나누어줍니다.", () => {
+    document.body.innerHTML = getHtml();
+    const view = new View(new CalculatorModel());
+    view.addEventHandlers();
+
+    document.querySelector("#num-3").click();
+
+    expect(document.querySelector("#display-text").innerText).toBe("3");
+    document.querySelector("#percent").click();
+    expect(document.querySelector("#display-text").innerText).toBe(0.03);
+    document.querySelector("#percent").click();
+    expect(document.querySelector("#display-text").innerText).toBe(0.0003);
+    document.querySelector("#percent").click();
+  });
+
+  test("지수표기를 하지 않습니다.", () => {
+    /**
+     * 자바스크립트는 보통 모든 number 타입의 값들을 과학적 표기법으로 처리하는데 보통 브라우저들마다
+     * 언제 지수로 보여줄 지 정하는 게 다름.
+     * https://stackoverflow.com/a/66005705
+     */
+
+    document.body.innerHTML = getHtml();
+    const view = new View(new CalculatorModel());
+    view.addEventHandlers();
+
+    document.querySelector("#num-3").click();
+
+    expect(document.querySelector("#display-text").innerText).toBe("3");
+    document.querySelector("#percent").click();
+    document.querySelector("#percent").click();
+    document.querySelector("#percent").click();
+    document.querySelector("#percent").click();
+    document.querySelector("#percent").click();
+    document.querySelector("#percent").click();
+    // NOTE: 타입의 일원화를 해주어야 할까?
+    expect(document.querySelector("#display-text").innerText).not.toBe(3e-12);
+    expect(document.querySelector("#display-text").innerText).toBe(
+      "0.000000000003"
+    );
+  });
+});
