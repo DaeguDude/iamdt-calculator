@@ -8,6 +8,7 @@ class View {
     this.displayValue = "0";
     this.savedNumber = 0;
     this.savedOperator = null;
+    this.lastInput = null;
 
     this.onOperatorBtnClick = this.onOperatorBtnClick.bind(this);
     this.onEqualBtnClick = this.onEqualBtnClick.bind(this);
@@ -16,6 +17,30 @@ class View {
     this.onClearBtnClick = this.onClearBtnClick.bind(this);
     this.onDecimalBtnClick = this.onDecimalBtnClick.bind(this);
     this.onNumberBtnClick = this.onNumberBtnClick.bind(this);
+    this.addLastInputHandler = this.addLastInputHandler.bind(this);
+    this.onButtonClick = this.onButtonClick.bind(this);
+  }
+
+  addLastInputHandler() {
+    document
+      .querySelectorAll("button")
+      .forEach((button) =>
+        button.addEventListener("click", this.onButtonClick)
+      );
+  }
+
+  onButtonClick(e) {
+    const isNumber = Array.from(e.target.classList).includes("number");
+    if (isNumber) {
+      return (this.lastInput = "number");
+    }
+
+    const isOperator = Array.from(e.target.classList).includes("operator");
+    if (isOperator) {
+      return (this.lastInput = "operator");
+    }
+
+    this.lastInput = e.target.id;
   }
 
   setDisplayValue(value) {
@@ -52,6 +77,8 @@ class View {
     numBtns.forEach((numBtn) =>
       numBtn.addEventListener("click", this.onNumberBtnClick)
     );
+
+    this.addLastInputHandler();
   }
 
   onNumberBtnClick(e) {
@@ -75,7 +102,7 @@ class View {
       return;
     }
 
-    const isOperatorClickedInARow = this.savedOperator;
+    const isOperatorClickedInARow = this.lastInput === "operator";
     if (isOperatorClickedInARow) {
       this.savedOperator = clickedOperator;
       return;

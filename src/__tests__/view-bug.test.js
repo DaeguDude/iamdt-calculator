@@ -22,4 +22,24 @@ describe("Bug", () => {
 
     expect(document.querySelector("#display-text").innerText).toBe(8);
   });
+
+  test("+ + + 6 - - - 9 를 클릭했는데 화면에 69가 나옴.", () => {
+    document.body.innerHTML = getHtml();
+    const view = new View(new CalculatorModel());
+    view.addEventHandlers();
+
+    document.querySelector("#plus").click();
+    document.querySelector("#plus").click();
+    document.querySelector("#plus").click();
+    document.querySelector("#num-6").click();
+    document.querySelector("#minus").click();
+    document.querySelector("#minus").click();
+    document.querySelector("#minus").click();
+    document.querySelector("#num-9").click();
+
+    expect(document.querySelector("#display-text").innerText).not.toBe("69");
+
+    document.querySelector("#equal").click();
+    expect(document.querySelector("#display-text").innerText).toBe(-3);
+  });
 });
